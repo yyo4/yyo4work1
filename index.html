@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,6 +61,11 @@
     font-size:26pt;letter-spacing:3px;
     color:var(--ink);margin:0 0 8px;
   }
+  .kana{
+    font-family:"Helvetica Neue","Hiragino Sans","Noto Sans JP",sans-serif;
+    font-size:9.5pt;color:var(--faint);
+    letter-spacing:4px;margin:0 0 10px;
+  }
   .role{
     font-family:"Donguri",monospace;
     font-size:11pt;color:var(--accent);
@@ -71,6 +76,11 @@
     color:var(--soft);font-size:9.5pt;line-height:2;
     text-align:center;
     text-wrap:pretty;word-break:break-word;
+  }
+  .bio-en{
+    display:block;margin-top:16px;
+    color:var(--faint);font-size:9pt;line-height:1.95;
+    letter-spacing:0.6px;
   }
 
   /* ===== 作品格：整齊固定正方 ===== */
@@ -173,10 +183,15 @@
   <header>
     <img class="avatar" src="avatar.gif" alt="manaa">
     <p class="name">manaa</p>
+    <p class="kana">マナ</p>
     <p class="role">pixel art</p>
     <p class="bio">
-      ドット絵を中心に制作しています。キャラクターデザインと、小さなサイズでの細部表現を得意としています。
+      ドット絵を中心に制作しています。キャラクターデザインと、小さなサイズでの細部表現を得意としています。<br>
       個人依頼を継続的に受け付けており、これまでに数百点のキャラクタードット絵を制作してきました。
+      <span class="bio-en">
+        A pixel artist focused on character design and detail within small canvases.<br>
+        Runs an ongoing commission practice with several hundred character pieces completed.
+      </span>
     </p>
   </header>
 
