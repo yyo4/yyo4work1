@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>yyo4 — pixel art portfolio</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍥</text></svg>">
+<meta property="og:title" content="yyo4 — pixel art portfolio">
+<meta name="theme-color" content="#ffffff">
+<meta name="color-scheme" content="light only">
+<style>
+  @font-face{
+    font-family:"Donguri";
+    src:url("x10y12pxDonguriDuel.ttf") format("truetype");
+    font-display:swap;
+  }
+  :root{
+    --ink:#3d3d3d;
+    --soft:#9a9a9a;
+    --faint:#c8c8c8;
+    --line:#ececec;
+    --accent:#a3d4f0;
+    --pink:#e7a7c7;
+  }
+  *{box-sizing:border-box;}
+  html{background:#fff;color-scheme:light only;}
+  body{
+    background:#fff;color:var(--ink);
+    font-family:"Helvetica Neue","Microsoft JhengHei","微軟正黑體",sans-serif;
+    font-size:10pt;line-height:1.9;letter-spacing:1.2px;
+    max-width:900px;margin:0 auto;
+    padding:70px 32px 110px;
+    animation:fadeUp 1s ease-out both;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(12px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* 頭像：正方形置中 */
+  header{text-align:center;margin-bottom:60px;}
+  .avatar{
+    width:120px;height:120px;
+    object-fit:cover;
+    image-rendering:pixelated;
+    display:block;margin:0 auto 22px;
+    border:1px solid var(--line);
+    background:#fafafa;
+  }
+  .name{
+    font-family:"Donguri",monospace;
+    font-size:24pt;letter-spacing:3px;
+    color:var(--ink);margin:0 0 8px;
+  }
+  .role{
+    font-family:"Donguri",monospace;
+    font-size:11pt;color:var(--accent);
+    letter-spacing:3px;margin:0;
+  }
+
+  /* 自我介紹 */
+  .about{
+    max-width:520px;margin:0 auto 70px;
+    text-align:left;color:var(--ink);
+    font-size:10pt;line-height:2.1;
+    text-wrap:pretty;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .about p{margin:8px 0;}
+
+  .sec-label{
+    font-family:"Donguri",monospace;
+    font-size:12pt;color:var(--accent);
+    letter-spacing:2px;text-align:left;
+    margin:0 0 24px;
+  }
+
+  /* 作品格 */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:26px;
+  }
+  .work{margin:0;}
+  .work .thumb{
+    position:relative;
+    width:100%;aspect-ratio:1/1;
+    border:1px solid var(--line);
+    background:#fafafa;
+    overflow:hidden;cursor:zoom-in;
+    transition:transform .6s ease,box-shadow .6s ease;
+  }
+  .work .thumb img{
+    width:100%;height:100%;
+    object-fit:cover;display:block;
+    image-rendering:pixelated;
+    transition:opacity .6s ease;
+  }
+  .work .thumb:hover{transform:translateY(-3px);box-shadow:0 4px 14px rgba(0,0,0,.07);}
+  .work .thumb:hover img{opacity:.85;}
+
+  /* Lightbox 點擊展開 */
+  .lb{
+    position:fixed;inset:0;z-index:999;
+    background:rgba(255,255,255,.96);
+    display:none;align-items:center;justify-content:center;
+    padding:40px 24px;cursor:zoom-out;
+    animation:lbIn .35s ease-out;
+  }
+  .lb.open{display:flex;}
+  @keyframes lbIn{from{opacity:0;}to{opacity:1;}}
+  .lb img{
+    max-width:100%;max-height:82vh;
+    image-rendering:pixelated;
+    border:1px solid var(--line);
+    background:#fff;
+  }
+  .lb-cap{
+    position:absolute;bottom:26px;left:0;right:0;
+    text-align:center;color:var(--soft);
+    font-size:9pt;letter-spacing:1.5px;
+  }
+  .lb-close{
+    position:absolute;top:18px;right:22px;
+    font-family:"Donguri",monospace;font-size:13pt;
+    color:var(--soft);cursor:pointer;
+    transition:opacity .4s ease;
+  }
+  .lb-close:hover{opacity:.55;}
+  .work figcaption{
+    display:flex;justify-content:space-between;align-items:baseline;
+    gap:10px;font-size:9pt;color:var(--soft);
+    margin-top:8px;letter-spacing:1px;
+  }
+  .work .year{
+    font-family:"Donguri",monospace;
+    color:var(--faint);flex:0 0 auto;
+  }
+
+  /* 聯絡 */
+  .contact{
+    margin-top:90px;padding-top:30px;
+    border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .contact a{
+    color:var(--accent);text-decoration:none;
+    transition:opacity .5s ease;
+    margin:0 10px;
+  }
+  .contact a:hover{opacity:.6;}
+  .contact .label{
+    font-family:"Donguri",monospace;
+    color:var(--faint);font-size:9pt;
+    letter-spacing:2px;margin-right:6px;
+  }
+  .contact p{margin:8px 0;}
+  .foot{
+    text-align:center;margin-top:36px;
+    font-family:"Donguri",monospace;
+    color:var(--faint);font-size:9pt;letter-spacing:2px;
+  }
+
+  @media (max-width:600px){
+    body{padding:50px 20px 80px;letter-spacing:0.6px;}
+    .name{font-size:19pt;}
+    .avatar{width:100px;height:100px;}
+    .grid{grid-template-columns:1fr;gap:22px;}
+    .about{margin-bottom:50px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    body{animation:none;}
+    .work img{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <img class="avatar" src="avatar.gif" alt="">
+    <p class="name">yyo4</p>
+    <p class="role">pixel art</p>
+  </header>
+
+  <div class="about">
+    <p>這裡寫自我介紹。</p>
+    <p>可以寫你的創作方向、擅長的風格、使用工具，或想讓對方知道的經歷。</p>
+    <p>建議 3-5 行就好，簡短有力。</p>
+  </div>
+
+  <p class="sec-label">- works</p>
+
+  <div class="grid">
+
+    <figure class="work">
+      <div class="thumb"><img src="work01.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work02.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work03.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work04.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work05.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work06.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work07.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work08.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work09.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work10.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work11.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work12.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work13.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work14.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work15.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work16.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work17.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work18.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work19.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work20.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work21.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work22.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work23.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work24.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work25.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+    <figure class="work">
+      <div class="thumb"><img src="work26.gif" alt=""></div>
+      <figcaption><span class="cap">說明文字</span><span class="year">2026</span></figcaption>
+    </figure>
+
+  </div>
+
+  <div class="contact">
+    <p><span class="label">X</span><a href="https://x.com/fishhherr" target="_blank" rel="noopener">@fishhherr</a></p>
+    <p><span class="label">MAIL</span><a href="mailto:cindycindy931221@gmail.com">cindycindy931221@gmail.com</a></p>
+    <p><span class="label">PLURK</span><a href="https://www.plurk.com/yyo4" target="_blank" rel="noopener">@yyo4</a></p>
+  </div>
+
+  <p class="foot">© 2026 yyo4</p>
+
+
+  <div class="lb" id="lb">
+    <span class="lb-close">✕</span>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-cap" id="lb-cap"></div>
+  </div>
+
+  <script>
+    (function(){
+      var lb = document.getElementById('lb');
+      var lbImg = document.getElementById('lb-img');
+      var lbCap = document.getElementById('lb-cap');
+
+      document.querySelectorAll('.work').forEach(function(fig){
+        var thumb = fig.querySelector('.thumb');
+        var img = fig.querySelector('img');
+        var cap = fig.querySelector('figcaption');
+        if(!thumb || !img) return;
+        thumb.addEventListener('click', function(){
+          lbImg.src = img.src;
+          lbCap.textContent = cap ? cap.textContent.trim() : '';
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function close(){
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      lb.addEventListener('click', close);
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') close();
+      });
+    })();
+  </script>
+
+</body>
+</html>
